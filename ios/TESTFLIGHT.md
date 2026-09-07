@@ -49,6 +49,41 @@ website" conversation can happen — the answer is in `APP-STORE-LISTING.md`.
 3. **Group** — TestFlight → Internal Testing → new group → add testers → tick
    *automatically distribute new builds*, so later uploads need no clicks here.
 
+## Team roles
+
+Role is the whole access decision, and the right answer differs for a tester and
+for someone writing code.
+
+| Role | Can | Give it to |
+|---|---|---|
+| Customer Support | Install TestFlight builds | Testers who only test |
+| **Developer** | Certificates, provisioning, register devices, upload builds | **A second developer** |
+| App Manager | The above, plus app metadata, TestFlight groups, submit | Someone running releases |
+| Admin | Everything but banking and legal agreements | Rarely needed |
+
+**Developer** is the right floor for someone helping build the app: enough to
+sign, register their own Mac and iPad, and push builds, without reaching app
+metadata or submissions. Move them to App Manager only if they need to run
+external testing groups themselves.
+
+Keep one person doing distribution exports. Apple caps how many distribution
+certificates a team may hold, and a team that generates one per machine
+eventually hits it at the worst possible moment.
+
+### What a second developer needs beyond App Store Connect
+
+1. **GitHub access** to `ryan-synergy/tellavision`.
+2. **Their own Apple Development certificate** — automatic once they are a
+   Developer on the team and signed in under Xcode → Settings → Accounts.
+3. **Their test device registered** (portal → Devices), and Developer Mode on
+   it: Settings → Privacy & Security → Developer Mode → restart.
+4. **The build story**, which is not what anyone expects: there is no Node and
+   no npm. `tellavision.tsx` is compiled to `index.html` by `build.html` in a
+   browser, and `index.html` is generated -- never hand-edited. See the README.
+   An Xcode build phase stages the web bundle and fails on a version mismatch,
+   so a stale bundle cannot ship, but it also means **the web app must be
+   rebuilt before the Xcode build**.
+
 ## Every release
 
 ```bash
