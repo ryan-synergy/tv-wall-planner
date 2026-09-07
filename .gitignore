@@ -6,3 +6,4 @@ ios/build/
 ios/**/xcuserdata/
 ios/**/*.xcworkspace/xcuserdata/
 DerivedData/
+dist/
